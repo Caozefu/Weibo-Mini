@@ -8,7 +8,7 @@
     "48": "assets/img/icon.png",
     "128": "assets/img/icon.png"
   },
-  "homepage_url": "https://github.com/Caozefu",
+  "homepage_url": "https://github.com/Caozefu/Weibo-Mini",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

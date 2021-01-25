@@ -138,6 +138,10 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>`
   );
 
+  jBody.append(button);
+  jBody.append(jContainer);
+
+  // 内容显示/隐藏
   const show = () => {
     jBody.css({ width: "calc(100% - 400px)", "margin-left": "400px" });
     $(".weibo-container").css({ display: "block" });
@@ -153,9 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
     isShow = !isShow;
   });
 
-  jBody.append(button);
-  jBody.append(jContainer);
-
+  // 快捷键
   $(document).keypress(function (e) {
     if (e.ctrlKey && e.which == 9) {
       !isShow ? show() : hide();
@@ -163,17 +165,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 记住上一次状态
-  chrome.storage.sync.get([FIXED_STORAGE], function (result) {
-    result.FIXED_STORAGE && jBody.addClass(result.FIXED_STORAGE);
-  });
-  chrome.storage.sync.get([FOLD_STORAGE], function (result) {
-    result.FOLD_STORAGE && jBody.addClass(result.FOLD_STORAGE);
+  // 小图标可拖动
+  let dragging; //是否激活拖拽状态
+  let tLeft, tTop; //鼠标按下时相对于选中元素的位移
+
+  //监听鼠标按下事件
+  document.addEventListener('mousedown', function (e) {
+    console.log(button.left);
+    if (e.target == button[0]) {
+      dragging = true; //激活拖拽状态
+      const moveElemRect = moveElem.getBoundingClientRect();
+      tLeft = e.clientX - moveElemRect.left; //鼠标按下时和选中元素的坐标偏移:x坐标
+      tTop = e.clientY - moveElemRect.top; //鼠标按下时和选中元素的坐标偏移:y坐标
+    }
   });
 
-  // 找到当前hash
-  function isCurrentHash(id) {
-    const hash = location.hash;
-    return decodeURIComponent(hash) === "#" + id;
-  }
+  //监听鼠标放开事件
+  document.addEventListener('mouseup', function (e) {
+    dragging = false;
+  });
+
+  //监听鼠标移动事件
+  document.addEventListener('mousemove', function (e) {
+    if (dragging) {
+      let moveX = e.clientX - tLeft;
+      let moveY = e.clientY - tTop;
+
+      button.css({ left: moveX + 'px' });
+      button.css({ top: moveY + 'px' });
+    }
+  });
 });
