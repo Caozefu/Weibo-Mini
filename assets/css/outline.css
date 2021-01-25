@@ -1,0 +1,23 @@
+.hover-button {
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  right: 100px;
+  top: 100px;
+  cursor: pointer;
+  z-index: 99999;
+}
+
+.hover-button > img {
+  width: 100%;
+  height: 100%;
+}
+
+.weibo-container {
+  width: 400px;
+  height: 100%;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+}

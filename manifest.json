@@ -1,0 +1,21 @@
+{
+  "name": "weibo mini",
+  "version": "1.0.0",
+  "description": "weibo mini in chrome",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "assets/img/icon.png",
+    "48": "assets/img/icon.png",
+    "128": "assets/img/icon.png"
+  },
+  "homepage_url": "https://github.com/Caozefu",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["assets/css/font.css", "assets/css/outline.css"],
+      "js": ["assets/js/jquery.js", "assets/js/outline.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "manifest_version": 2
+}
